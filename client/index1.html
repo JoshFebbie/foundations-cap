@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+    <title>Rumble-Quotes</title>
+
+    <style>
+      body {
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="nav1">
+      <div>
+        <h2>BRAWL-QUOTES</h2>
+      </div>
+      <ul>
+        <li id="list1">
+          <h6 id="cent">Tic-Tac=&gt;</h6>
+          <br />
+          <a href="index.html">
+            <img class="gloves" src="assets/gloves.png" alt="glv" />
+          </a>
+          <h6>&lt;=BRAWL!</h6>
+        </li>
+      </ul>
+    </nav>
+    <br /><br /><br />
+    <h2 id="h2-1">Have a favorite "BRAWL-Quote" you'de like to post?</h2>
+    <br /><br /><br />
+    <div class="pic-div">
+      <img src="assets/main-mike.png" id="pics1" />
+      <br />
+      <h1 id="h1"> VS</h1>
+      <br />
+      <img src="assets/bruce-1.png" id="pics1" />
+    </div>
+    <br />
+    <br />
+    <div id="enterDetails">
+      <h1>Enter Details</h1>
+      <br />
+      <h4>Sport/Art</h4>
+      <input class="input" id="enterID" type="text" />
+      <br /><br />
+      <h4>Name</h4>
+      <input class="input" id="enterName" type="text" />
+      <br /><br />
+      <h4>Quote</h4>
+      <input class="input" id="enterAge" type="text" />
+      <br />
+      <br />
+      <button class="class1" id="update">UPDATE</button>
+      <button class="class1" id="insert">POST</button>
+      <button class="class1" id="remove">DELETE</button>
+    </div>
+    <br /><br /><br />
+    <div id="findDetails">
+      <h1>Find by Sport/Art</h1>
+      <br /><br />
+      <input class="input" id="findID" type="text" />
+      <br />
+      <br />
+      <button class="class1" id="find">Find</button>
+
+      <h3 id="findName" type="text"></h3>
+      <h3 id="findAge" type="text"></h3>
+    </div>
+
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.20.0/firebase-app.js";
+      // TODO: Add SDKs for Firebase products that you want to use
+      //

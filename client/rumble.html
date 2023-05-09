@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+    <title>Rumble-Quotes</title>
+
+    <style>
+      body {
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="nav1">
+      <div>
+        <h2>BRAWL-QUOTES</h2>
+      </div>
+      <ul>
+        <li id="list1">
+          <h6 id="cent">Tic-Tac=></h6>
+          <br />
+          <a href="index.html">
+            <img class="gloves" src="assets/gloves.png" alt="glv" />
+          </a>
+          <h6><=BRAWL!</h6>
+        </li>
+      </ul>
+    </nav>
+    <br /><br /><br />
+    <h2 id="h2-1">Have a favorite "BRAWL-Quote" you'de like to post?</h2>
+    <br /><br /><br />
+    <div class="pic-div">
+      <img src="assets/main-mike.png" id="pics1" />
+      <br />
+      <h1 id="h1">VS</h1>
+      <br />
+      <img src="assets/bruce-1.png" id="pics1" />
+    </div>
+    <br />
+    <br />
+    <div id="enterDetails">
+      <h1>Enter Details</h1>
+      <br />
+      <h4>Sport/Art</h4>
+      <input class="input" id="enterID" type="text" />
+      <br /><br />
+      <h4>Name</h4>
+      <input class="input" id="enterName" type="text" />
+      <br /><br />
+      <h4>Quote</h4>
+      <input class="input" id="enterAge" type="text" />
+      <br />
+      <br />
+      <button class="class1" id="update">UPDATE</button>
+      <button class="class1" id="insert">POST</button>
+      <button class="class1" id="remove">DELETE</button>
+    </div>
+    <br />
+    <div id="findDetails">
+      <h1>Find by Sport/Art</h1>
+      <br /><br />
+      <input class="input" id="findID" type="text" />
+      <br />
+      <br />
+      <button class="class1" id="find">Find</button>
+
+      <h3 id="findName" type="text"></h3>
+      <h3 id="findAge" type="text"></h3>
+      <button class="class1" id="clearResults">Clear</button>
+      <!-- New Clear button -->
+    </div>
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.20.0/firebase-app.js";
+      // TODO: Add SDKs for Firebase products that you want to use
+      // https://firebase.google.com/docs/web/setup#available-libraries
+
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyCcdZgHHKyr7AVbSNVM9VnY7FK43fJqxfQ",
+        authDomain: "new-brawl.firebaseapp.com",
+        databaseURL: "https://new-brawl-default-rtdb.firebaseio.com",
+        projectId: "new-brawl",
+        storageBucket: "new-brawl.appspot.com",
+        messagingSenderId: "835940407126",
+        appId: "1:835940407126:web:839ced75f207ebc927a8f7",
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+
+      import {
+        getDatabase,
+        set,
+        get,
+        update,
+        remove,
+        ref,
+        child,
+      } from "https://www.gstatic.com/firebasejs/9.20.0/firebase-database.js";
+
+      const db = getDatabase();
+
+      let enterId = document.querySelector("#enterID");
+      let enterName = document.querySelector("#enterName");
+      let enterAge = document.querySelector("#enterAge");
+      let findID = document.querySelector("#findID");
+      let findName = document.querySelector("#findName");
+      let findAge = document.querySelector("#findAge");
+
+      let insertBtn = document.querySelector("#insert");
+      let updateBtn = document.querySelector("#update");
+      let removeBtn = document.querySelector("#remove");
+      let findBtn = document.querySelector("#find");
+      let clearResultsBtn = document.querySelector("#clearResults");
+
+      const InsertData = () => {
+        set(ref(db, "People/" + enterID.value), {
+          Name: enterName.value,
+          ID: enterID.value,
+          Age: enterAge.value,
+        })
+          .then(() => {
+            alert("Data added successfully");
+            enterID.value = ""; // clear input field
+            enterName.value = ""; // clear input field
+            enterAge.value = ""; // clear input field
+          })
+          .catch((error) => {
+            alert(error);
+          });
+      };
+
+      const FindData = () => {
+        const dbref = ref(db);
+        get(child(dbref, "People/" + findID.value))
+          .then((snapshot) => {
+            if (snapshot.exists()) {
+              findName.innerHTML = "Name: " + snapshot.val().Name;
+              findAge.innerHTML = "Quote: " + snapshot.val().Age;
+            } else {
+              alert("No data found!");
+            }
+          })
+          .catch((error) => {
+            alert(error);
+          });
+      };
+
+      const UpdateData = () => {
+        update(ref(db, "People/" + enterID.value), {
+          Name: enterName.value,
+          Age: enterAge.value,
+        })
+          .then(() => {
+            alert("Data was updated Successfully!");
+          })
+          .catch((error) => {
+            alert(error);
+          });
+      };
+
+      const RemoveData = () => {
+        remove(ref(db, "People/" + enterID.value))
+          .then(() => {
+            alert("Data removed successfully");
+          })
+          .catch((error) => {
+            alert(error);
+          });
+      };
+
+      const clearResults = () => {
+        findName.innerHTML = ""; // Clear search results
+        findAge.innerHTML = ""; // Clear search results
+        findID.value = ""; // Clear #findID input
+      };
+
+      const generateRandomAudio = () => {
+        // Generate random audio logic here
+        // Example: Play a random audio file
+        const audioFiles = ["audio1.mp3", "audio2.mp3", "audio3.mp3"];
+        const randomIndex = Math.floor(Math.random() * audioFiles.length);
+        const randomAudio = new Audio(audioFiles[randomIndex]);
+        randomAudio.play();
+      };
+
+      insertBtn.addEventListener("click", generateRandomAudio);
+      clearResultsBtn.addEventListener("click", clearResults);
+      insertBtn.addEventListener("click", InsertData);
+      updateBtn.addEventListener("click", UpdateData);
+      removeBtn.addEventListener("click", RemoveData);
+      findBtn.addEventListener("click", FindData);
+    </script>
+  </body>
+</html>
